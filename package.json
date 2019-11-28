@@ -15,7 +15,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "tslint --project ."
+    "lint": "tslint --project .",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +44,7 @@
     "@types/react-redux": "^7.1.5",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "gh-pages": "^2.1.1",
     "husky": "^3.1.0",
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1",
@@ -56,5 +59,6 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged && yarn lint"
     }
-  }
+  },
+  "homepage": "https://eon8.github.io/currency-exchange"
 }
