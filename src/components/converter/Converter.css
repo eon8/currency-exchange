@@ -1,0 +1,29 @@
+.Converter {
+  padding: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.Converter-line {
+  height: 60px;
+}
+
+.Converter-button {
+  display: block;
+  margin: 30px auto;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.Converter-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.Converter-button:active {
+  background: rgba(255, 255, 255, 0.1);
+}

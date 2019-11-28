@@ -1,10 +1,10 @@
 import Decimal from "decimal.js";
-import { ICurrency } from "../currency/Currency.interface";
+import { ICurrency } from "../currency/Currency";
 
 export class Pocket {
   private balance: Decimal;
 
-  constructor(private currency: ICurrency, initBalance: string) {
+  constructor(private currency: ICurrency, initBalance?: string) {
     this.balance = new Decimal(initBalance || "0.00");
   }
 
@@ -31,8 +31,12 @@ export class Pocket {
     return this;
   }
 
-  public format(): string {
-    return `${this.currency.sign}${this.getAmount()}`;
+  public convert(to: ICurrency, rate: number): Pocket {
+    return new Pocket(to, this.balance.mul(rate).toFixed(2));
+  }
+
+  public format(precision: number = 2): string {
+    return `${this.currency.sign}${this.balance.toFixed(precision)}`;
   }
 
   private normalize(amount: string): Decimal {
