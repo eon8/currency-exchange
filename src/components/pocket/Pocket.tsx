@@ -23,6 +23,7 @@ interface IPocketDispatchProps {
 
 interface IPocketOwnProps {
   slot: PocketType;
+  propagateConvert: () => void;
 }
 
 type IPocketProps = IPocketStateProps & IPocketDispatchProps & IPocketOwnProps;
@@ -36,7 +37,13 @@ export class PocketPure extends React.Component<IPocketProps, IPocketState> {
 
   render() {
     const { isChanging } = this.state;
-    const { slot, currency, currencies, balance } = this.props;
+    const {
+      slot,
+      currency,
+      currencies,
+      balance,
+      propagateConvert
+    } = this.props;
     return (
       <div className="Pocket">
         {isChanging ? (
@@ -47,6 +54,7 @@ export class PocketPure extends React.Component<IPocketProps, IPocketState> {
             currency={currency}
             balance={balance}
             change={this.change}
+            propagateConvert={propagateConvert}
           />
         ) : (
           <div className="Pocket-select" onClick={this.change}>

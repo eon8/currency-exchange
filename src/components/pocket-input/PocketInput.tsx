@@ -26,6 +26,7 @@ interface IPocketInputOwnProps {
   currency: ICurrency;
   balance?: string;
   change: () => void;
+  propagateConvert: () => void;
 }
 
 type IPocketInputProps = IPocketInputStateProps &
@@ -42,7 +43,9 @@ export class PocketInputPure extends React.Component<IPocketInputProps> {
   ): void {
     if (
       this.input &&
-      (prevProps.from !== this.props.from || prevProps.to !== this.props.to)
+      (prevProps.from !== this.props.from ||
+        prevProps.to !== this.props.to ||
+        prevProps.fromBalance !== this.props.fromBalance)
     ) {
       this.input.focus();
     }
@@ -84,6 +87,7 @@ export class PocketInputPure extends React.Component<IPocketInputProps> {
         className={"PocketInput-field" + (invalid ? " invalid" : "")}
         value={slot === PocketType.FROM ? fromAmount : toAmount}
         onChange={this.onChange(slot)}
+        onKeyPress={this.onKeyPress}
         ref={input => {
           if (slot === PocketType.FROM) {
             this.input = input;
@@ -113,6 +117,12 @@ export class PocketInputPure extends React.Component<IPocketInputProps> {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     this.updateAmounts(slot, event.target.value);
+  };
+
+  onKeyPress = (event: React.KeyboardEvent) => {
+    if (event.charCode === 13) {
+      this.props.propagateConvert();
+    }
   };
 
   updateAmounts = (slot: PocketType, amount: string) => {

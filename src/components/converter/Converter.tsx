@@ -5,6 +5,7 @@ import { PocketType, setAmounts } from "../../actions/converter";
 import { pocketTopUp, pocketWithdraw } from "../../actions/pockets";
 import { ICurrency } from "../../core/currency/Currency";
 import { IStoreState } from "../../reducers";
+import { defaultFromAmount, defaultToAmount } from "../../reducers/converter";
 import Pocket from "../pocket/Pocket";
 import "./Converter.css";
 
@@ -34,10 +35,10 @@ export class ConverterPure extends React.Component<IConverterProps> {
       <div>
         <div className="Converter">
           <div className="Converter-line">
-            <Pocket slot={PocketType.FROM} />
+            <Pocket slot={PocketType.FROM} propagateConvert={this.convert} />
           </div>
           <div className="Converter-line">
-            <Pocket slot={PocketType.TO} />
+            <Pocket slot={PocketType.TO} propagateConvert={this.convert} />
           </div>
         </div>
         {valid ? (
@@ -71,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IConverterDispatchProps => ({
   ) => {
     dispatch(pocketWithdraw(from, fromAmount));
     dispatch(pocketTopUp(to, toAmount));
-    dispatch(setAmounts("", "", false));
+    dispatch(setAmounts(defaultFromAmount, defaultToAmount, false));
   }
 });
 
